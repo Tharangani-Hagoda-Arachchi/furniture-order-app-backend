@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info: 
+  title: Furniture Order App API
+  version: 1.0.0
+  description: API Documentation for Furniture Order App
+
+servers:
+  - url: http://localhost:4000/api
+    description: Local Server
+
+tags:
+  - name: Furniture Categories
+    description: Endpoints related to furniture categories
+
+paths:
+  /furniture-categories:
+    post:
+      summary: Create new category
+      tags: [Furniture Categories]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - categoryName
+                - categoryImage
+              properties:
+                categoryName:
+                  type: string
+                  example: Chairs
+                categoryImage:
+                  type: string
+                  format: binary
+      responses:
+        201:
+          description: New Category Added Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: New Category Added Successfully
+        400:
+          description: Bad request (image missing or category already exists)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Fail
+                  message:
+                    type: string
+                    example: Image is Required
+        500:
+          description: Server error while adding category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: Failed to Add Category
