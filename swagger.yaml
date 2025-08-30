@@ -1,5 +1,5 @@
 openapi: 3.0.0
-info: 
+info:
   title: Furniture Order App API
   version: 1.0.0
   description: API Documentation for Furniture Order App
@@ -16,7 +16,8 @@ paths:
   /furniture-categories:
     post:
       summary: Create new category
-      tags: [Furniture Categories]
+      tags:
+        - Furniture Categories
       requestBody:
         required: true
         content:
@@ -73,3 +74,62 @@ paths:
                   message:
                     type: string
                     example: Failed to Add Category
+
+    get:
+      summary: Get all furniture categories
+      tags:
+        - Furniture Categories
+      responses:
+        200:
+          description: List of furniture categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: Fetch All Category Items Successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 64d9f8a2c1234abcd56789ef
+                        categoryName:
+                          type: string
+                          example: Chairs
+                        categoryImage:
+                          type: string
+                          example: https://example.com/uploads/chairs.png
+        404:
+          description: No category found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Fail
+                  message:
+                    type: string
+                    example: No category
+        500:
+          description: Server error while fetching categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: Failed to Fetch Category Items

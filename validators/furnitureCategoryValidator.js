@@ -6,7 +6,7 @@ export const addCategorySchema = Joi.object(
         .string()
         .required()
         .messages({
-            'any.require' : 'Category Name is Required'
+            'any.required' : 'Category Name is Required'
         }),
 
 

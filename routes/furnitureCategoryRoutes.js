@@ -1,8 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import path from 'path';
-import Joi from 'joi'
-import { addCategory } from "../controllers/furnitureCategoryController.js";
+import { addCategory,fetchCategory } from "../controllers/furnitureCategoryController.js";
 import { validate } from "../middlewares/validate.js";
 import multer from "multer";
 import { addCategorySchema } from '../validators/furnitureCategoryValidator.js';
@@ -19,8 +18,10 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-
 // add new category route
 categoryRouter.post('/furniture-categories',upload.single('categoryImage'),validate(addCategorySchema),addCategory)
+
+// fetch all category route
+categoryRouter.get('/furniture-categories',fetchCategory)
 
 export default categoryRouter

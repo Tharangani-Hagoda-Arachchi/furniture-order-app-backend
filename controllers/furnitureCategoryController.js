@@ -1,6 +1,7 @@
 import { AppError } from '../AppError.js';
 import {Category} from '../models/furnitureCategory.js'
 
+// add new category
 export const addCategory = async (req, res, next) => {
     try{
         const {categoryName} = req.body
@@ -31,6 +32,32 @@ export const addCategory = async (req, res, next) => {
 
     } catch(error){
         next(new AppError(error.message || "Failed to Add Category", 500))
+
+    }
+}
+
+
+// featch all category items
+export const fetchCategory = async (req, res, next) => {
+    try{
+
+        // check if category is  empty
+        const category = await Category.find();
+        if (!category){
+            return next (new AppError("No category", 404));
+        }
+
+        // responce with code and message
+        res.status(200).json({
+            status: "Success",
+            message: "Fetch All Category Items Successfully",
+            data: category
+
+        })
+
+
+    } catch(error){
+        next(new AppError(error.message || "Failed to Fetch Category Items", 500))
 
     }
 }
