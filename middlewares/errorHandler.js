@@ -1,4 +1,4 @@
-import errorResponces from "../utils/errorResponces.js";
+import {errorResponces} from "../utils/errorResponces.js";
 
 const errorHandler =(err, req, res, next) => {
     const statusCode = err.statusCode || 500;
@@ -8,4 +8,4 @@ const errorHandler =(err, req, res, next) => {
     res.status(statusCode).json(errorResponce(err.message))
 }
 
-module.exports = errorHandler
+export default  errorHandler

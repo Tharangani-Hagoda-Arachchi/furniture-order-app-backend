@@ -1,4 +1,4 @@
-module.exports = {
+export const errorResponces = {
     400: (msg) => ({
       status: "fail",
       code: 400,

@@ -5,6 +5,8 @@ import { dbConnect } from './dbConnect.js'
 import categoryRouter from './routes/furnitureCategoryRoutes.js'
 import swaggerUi from "swagger-ui-express";
 import YAML from "yamljs";
+import itemRoute from './routes/furnitureItemRoutes.js'
+import errorHandler from "./middlewares/errorHandler.js"; 
 
 
 const app = express()
@@ -14,12 +16,15 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser())
 
+app.use(errorHandler)
+
 app.use('/uploads', express.static('uploads'));
 
 
 dbConnect()
 
 app.use('/api',categoryRouter)
+app.use('/api',itemRoute)
 
 // Swagger UI route
 const swaggerDocument = YAML.load("./swagger.yaml");

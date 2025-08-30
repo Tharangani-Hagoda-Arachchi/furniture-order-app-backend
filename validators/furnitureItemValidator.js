@@ -5,23 +5,23 @@ export const addItemSchema = Joi.object(
         itemName: Joi
         .string()
         .required()
-        .message({
-            'any.required': 'Item Name is Required'
+        .messages({
+            'string.empty': 'Item Name is Required'
         })
     },
     {
         itemCategory: Joi
         .string()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Category is Required'
-        })
+        }),
     },
     {
         itemType: Joi
         .string()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Type is Required'
         })
     },
@@ -29,7 +29,7 @@ export const addItemSchema = Joi.object(
         itemPrice: Joi
         .number()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Price is Required',
             'number.base': 'Inavalid Format'
         }),
@@ -39,7 +39,7 @@ export const addItemSchema = Joi.object(
         .array()
         .items(Joi.string())
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Coloris Required'
         })
     },
@@ -48,7 +48,7 @@ export const addItemSchema = Joi.object(
         .number()
         .min(0)
         .max(5)
-        .message({
+        .messages({
             'number.base': 'Inavalid Format'
         })
     },
@@ -56,7 +56,7 @@ export const addItemSchema = Joi.object(
         length: Joi
         .number()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Length Required',
             'number.base': 'Inavalid Format'
         })
@@ -65,7 +65,7 @@ export const addItemSchema = Joi.object(
         width: Joi
         .number()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Width Required',
             'number.base': 'Inavalid Format'
         })
@@ -74,7 +74,7 @@ export const addItemSchema = Joi.object(
         height: Joi
         .number()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Height Required',
             'number.base': 'Inavalid Format'
         })
@@ -83,7 +83,7 @@ export const addItemSchema = Joi.object(
         unit: Joi
         .string()
         .required()
-        .message({
+        .messages({
             'any.required': 'Item Length Required',
         })
     },

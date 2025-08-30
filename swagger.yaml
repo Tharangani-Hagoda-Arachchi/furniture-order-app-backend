@@ -11,6 +11,8 @@ servers:
 tags:
   - name: Furniture Categories
     description: Endpoints related to furniture categories
+  - name: Furniture Items
+    description: Endpoints for managing furniture items
 
 paths:
   /furniture-categories:
@@ -133,3 +135,128 @@ paths:
                   message:
                     type: string
                     example: Failed to Fetch Category Items
+
+  /items:
+    post:
+      summary: Add a new furniture item
+      tags:
+        - Furniture Items
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - itemName
+                - itemCategory
+                - itemType
+                - itemPrice
+                - itemColor
+                - itemImages
+                - itemDimension[length]
+                - itemDimension[width]
+                - itemDimension[height]
+                - itemDimension[unit]
+              properties:
+                itemName:
+                  type: string
+                  example: "3-Seater Sofa"
+                itemCategory:
+                  type: string
+                  example: "Sofa & Couches"
+                itemType:
+                  type: string
+                  example: "3-Seater"
+                itemPrice:
+                  type: number
+                  example: 25000
+                itemColor:
+                  type: string
+                  description: JSON stringified array of colors
+                  example: '["Blue","Gray"]'
+                itemWeight:
+                  type: string
+                  example: "30kg"
+                itemMaterial:
+                  type: string
+                  example: "Leather"
+                itemStyle:
+                  type: string
+                  example: "Modern"
+                itemBrand:
+                  type: string
+                  example: "ComfortLiving"
+                itemWarranty:
+                  type: string
+                  example: "2 years"
+                itemAssembly:
+                  type: string
+                  example: "Assembly required"
+                itemCareInstruction:
+                  type: string
+                  example: "Wipe with a damp cloth"
+                itemDelivaryInfo:
+                  type: string
+                  example: "Delivery in 5-7 days"
+                itemreturnPolicy:
+                  type: string
+                  example: "30 days return"
+                itemImages:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+                  description: Upload one or more images
+                itemDimension[length]:
+                  type: number
+                  example: 80
+                itemDimension[width]:
+                  type: number
+                  example: 35
+                itemDimension[height]:
+                  type: number
+                  example: 32
+                itemDimension[unit]:
+                  type: string
+                  example: "in"
+      responses:
+        201:
+          description: New Item Added Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: New Item Added Successfully
+        400:
+          description: Bad request (image missing or Item already exists)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Fail
+                  message:
+                    type: string
+                    example: Image is Required
+        500:
+          description: Server error while adding item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: Failed to Add Item
