@@ -73,3 +73,38 @@ export const addItem = async (req, res, next) => {
 
     }
 }
+
+//get item by category
+export const getItemsByCategory = async (req, res, next) => {
+    try {
+        const {categoryName}  = req.params;
+
+        //cheeck the category is available
+        if (!categoryName){
+            return next (new AppError("Item Category are Required", 400));
+        }
+
+        // Search for categoryid with givena category name
+        const category = await Category.findOne({ categoryName });
+
+        if (!category) {
+            return next (new AppError("Item Category are Not Found", 400));
+        }
+        // Search for items belong to categoryid 
+        const itemsWithCategory = await Item.findOne({ itemCategory: category._id });
+
+        if (!itemsWithCategory) {
+            return next (new AppError("Items in this Category are Not Found", 400));
+        }
+        // responce with code and message
+        res.status(200).json({
+            status: "Success",
+            message: "Fetch All Items According to Category Successfully",
+            data: itemsWithCategory
+
+        })
+        next()
+    } catch (error) {
+        next(new AppError(error.message || "Failed to Fetch Items", 500))
+    }
+};

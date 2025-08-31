@@ -4,7 +4,7 @@ import fs from 'fs'
 import multer from 'multer'
 import { validate } from '../middlewares/validate.js'
 import { addItemSchema } from '../validators/furnitureItemValidator.js'
-import { addItem } from '../controllers/furnitureItemController.js'
+import { addItem, getItemsByCategory } from '../controllers/furnitureItemController.js'
 
 const itemRoute = express.Router()
 
@@ -20,5 +20,8 @@ const storage = multer.diskStorage({
 
 //add new item route
 itemRoute.post('/items',validate(addItemSchema),upload.array("itemImages",10), addItem)
+
+// fetch all items according to category route
+itemRoute.get('/items/:categoryName',getItemsByCategory)
 
 export default itemRoute
