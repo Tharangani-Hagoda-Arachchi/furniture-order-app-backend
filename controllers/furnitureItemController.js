@@ -1,10 +1,11 @@
 import { AppError } from "../AppError.js";
+import { Category } from "../models/furnitureCategory.js";
 import { Item } from "../models/furnitureItem.js";
 
 // add new Item
 export const addItem = async (req, res, next) => {
     try{
-        const {itemName,itemCategory,itemType,itemPrice,itemColor,itemWeight,itemMaterial,itemStyle,itemBrand,itemWarranty,itemAssembly,itemCareInstruction,itemDelivaryInfo,itemreturnPolicy,itemDimension} = req.body;
+        const {itemName,itemCategory,itemType,itemPrice,itemDiscount,itemColor,itemAvailability,itemDescription,itemWeight,itemMaterial,itemStyle,itemBrand,itemWarranty,itemAssembly,itemCareInstruction,itemDelivaryInfo,itemreturnPolicy,itemDimension} = req.body;
         
 
         if (!req.files|| req.files.length === 0) return res.status(400).json({
@@ -25,13 +26,21 @@ export const addItem = async (req, res, next) => {
         if (existingItem){
             return next (new AppError("Item Already Exist", 400));
         }
+        // check if item category is valid
+        const category = await Category.findOne({categoryName:itemCategory});
+        if (!category){
+            return next (new AppError("Item Category is not Valid", 400));
+        }
 
         const item = new Item({
             itemName,
-            itemCategory,
+            itemCategory: category._id,
             itemType,
             itemPrice,
+            itemDiscount,
             itemColor,
+            itemAvailability,
+            itemDescription,
             itemWeight,
             itemMaterial,
             itemStyle,

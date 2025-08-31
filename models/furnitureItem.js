@@ -29,7 +29,8 @@ const itemSchema = new mongoose.Schema({
         trim: true
     },
     itemCategory: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         require: true
     },
     itemType: {
@@ -40,10 +41,23 @@ const itemSchema = new mongoose.Schema({
         type: Number,
         require: true
     },
+    itemDiscount: {
+        type: Number,
+        default: 0
+    },
     itemColor: [{
         type: String,
         require: true
     }],
+    itemAvailability: {
+        type: String,
+        require: true, 
+        default: "available"
+    },
+    itemDescription: {
+        type: String,
+        require: true,
+    },
     itemWeight: {
         type: String
     },

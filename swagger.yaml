@@ -153,6 +153,8 @@ paths:
                 - itemType
                 - itemPrice
                 - itemColor
+                - itemAvailability
+                - itemDescription
                 - itemImages
                 - itemDimension[length]
                 - itemDimension[width]
@@ -171,10 +173,19 @@ paths:
                 itemPrice:
                   type: number
                   example: 25000
+                itemDiscount:
+                  type: number
+                  example: 25000
                 itemColor:
                   type: string
-                  description: JSON stringified array of colors
                   example: '["Blue","Gray"]'
+                itemAvailability:
+                  type: string
+                  description: 'available, not available'
+                  example: "available"
+                itemDescription:
+                  type: string
+                  example: "A cozy 3-seater sofa with premium fabric upholstery and cushioned comfort, perfect for modern living rooms."
                 itemWeight:
                   type: string
                   example: "30kg"

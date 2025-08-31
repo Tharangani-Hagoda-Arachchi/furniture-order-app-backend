@@ -35,6 +35,13 @@ export const addItemSchema = Joi.object(
         }),
     },
     {
+        itemDiscount: Joi
+        .number()
+        .messages({
+            'number.base': 'Inavalid Format'
+        }),
+    },
+    {
         itemColor: Joi
         .array()
         .items(Joi.string())
@@ -43,6 +50,23 @@ export const addItemSchema = Joi.object(
             'any.required': 'Item Coloris Required'
         })
     },
+    {
+        itemAvailability: Joi
+        .string()
+        .required()
+        .messages({
+            'any.required': 'Item Availability Required'
+        })
+    },
+    {
+        itemDescription: Joi
+        .string()
+        .required()
+        .messages({
+            'any.required': 'Item Description Required'
+        })
+    },
+    
     {
         itemRatings: Joi
         .number()
