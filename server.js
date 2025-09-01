@@ -19,6 +19,7 @@ app.use(cookieParser())
 app.use(errorHandler)
 
 app.use('/uploads', express.static('uploads'));
+app.use('/item-images', express.static('item-images'));
 
 
 dbConnect()

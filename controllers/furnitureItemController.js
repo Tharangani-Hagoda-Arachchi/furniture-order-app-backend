@@ -91,7 +91,7 @@ export const getItemsByCategory = async (req, res, next) => {
             return next (new AppError("Item Category are Not Found", 400));
         }
         // Search for items belong to categoryid 
-        const itemsWithCategory = await Item.findOne({ itemCategory: category._id });
+        const itemsWithCategory = await Item.find({ itemCategory: category._id });
 
         if (!itemsWithCategory) {
             return next (new AppError("Items in this Category are Not Found", 400));
