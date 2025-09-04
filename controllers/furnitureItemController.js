@@ -108,3 +108,30 @@ export const getItemsByCategory = async (req, res, next) => {
         next(new AppError(error.message || "Failed to Fetch Items", 500))
     }
 };
+
+
+
+// featch all items
+export const fetchItems = async (req, res, next) => {
+    try{
+
+        // check if item is  empty
+        const items = await Item.find();
+        if (!items){
+            return next (new AppError("No Item Found", 404));
+        }
+
+        // responce with code and message
+        res.status(200).json({
+            status: "Success",
+            message: "Fetch All  Items Successfully",
+            data: items
+
+        })
+
+
+    } catch(error){
+        next(new AppError(error.message || "Failed to Fetch Category Items", 500))
+
+    }
+}
