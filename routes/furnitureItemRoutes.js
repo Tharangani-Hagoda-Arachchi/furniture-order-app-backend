@@ -4,7 +4,7 @@ import fs from 'fs'
 import multer from 'multer'
 import { validate } from '../middlewares/validate.js'
 import { addItemSchema } from '../validators/furnitureItemValidator.js'
-import { addItem, getItemsByCategory, fetchItems } from '../controllers/furnitureItemController.js'
+import { addItem, getItemsByCategory, fetchItems, getItemsByID } from '../controllers/furnitureItemController.js'
 
 const itemRoute = express.Router()
 
@@ -23,6 +23,10 @@ itemRoute.post('/items',validate(addItemSchema),upload.array("itemImages",10), a
 
 // fetch all items according to category route
 itemRoute.get('/items/:categoryName',getItemsByCategory)
+
+
+// fetch item according to ID
+itemRoute.get('/items/details/:_id',getItemsByID)
 
 // fetch all items
 itemRoute.get('/items',fetchItems)

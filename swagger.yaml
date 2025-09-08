@@ -419,3 +419,79 @@ paths:
                     type: string
                     example: Failed to Fetch Items By Category
 
+  /items/details/{_id}:
+    get:
+      summary: Get item by ID
+      tags:
+        - Furniture Items
+      parameters:
+        - in: path
+          name: _id
+          required: true
+          schema:
+            type: string
+          description: The ID of the Item to fetch 
+      responses:
+        200:
+          description: Detail of items for the given ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: Fetch Item By ID Successfully
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: string
+                          example: 64d9f8a2c1234abcd56789ef
+                        itemName:
+                          type: string
+                          example: Wooden Chair
+                        itemPrice:
+                          type: number
+                          example: 12000
+                        itemDescription:
+                          type: string
+                          example: Comfortable wooden chair with cushion
+                        itemImage:
+                          type: string
+                          example: https://example.com/uploads/wooden-chair.png
+                        categoryName:
+                          type: string
+                          example: Chairs
+        404:
+          description: No items found for the given ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Fail
+                  message:
+                    type: string
+                    example: No items found in this ID
+        500:
+          description: Server error while fetching items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: Failed to Fetch Items By ID
+

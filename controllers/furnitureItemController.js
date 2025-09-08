@@ -135,3 +135,33 @@ export const fetchItems = async (req, res, next) => {
 
     }
 }
+
+//get item by id
+export const getItemsByID = async (req, res, next) => {
+    try {
+        const {_id}  = req.params;
+
+        //cheeck the id is available
+        if (!_id){
+            return next (new AppError("Item ID Required", 400));
+        }
+
+        const itemsWithID = await Item.findOne({_id});
+
+        if (!itemsWithID) {
+            return next (new AppError("Item is Not Found", 400));
+        }
+        // responce with code and message
+        res.status(200).json({
+            status: "Success",
+            message: "Fetch Item According to ID",
+            data: itemsWithID
+
+        })
+        next()
+    } catch (error) {
+        next(new AppError(error.message || "Failed to Fetch Item", 500))
+    }
+};
+
+
