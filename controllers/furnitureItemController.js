@@ -32,13 +32,16 @@ export const addItem = async (req, res, next) => {
             return next (new AppError("Item Category is not Valid", 400));
         }
 
+         // Convert itemColor array to hex codes
+        const colorHexArray = Array.isArray(itemColor)? itemColor.map(name => mapColorNameToHex(name)): [];
+
         const item = new Item({
             itemName,
             itemCategory: category._id,
             itemType,
             itemPrice,
             itemDiscount,
-            itemColor,
+            itemColor: colorHexArray,
             itemAvailability,
             itemDescription,
             itemWeight,
