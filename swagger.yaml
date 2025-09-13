@@ -176,6 +176,79 @@ paths:
                     example: Internal Server Error
       security: []
 
+  /auths/logout:
+    post:
+      summary: User Logout
+      description: >
+        Logs out the currently authenticated user by removing their refresh token 
+        from the database and clearing the refresh token cookie.
+      tags:
+        - Authentication
+      parameters:
+        - name: refreshToken
+          in: cookie
+          required: false
+          description: Refresh token from HttpOnly cookie.
+          schema:
+            type: string
+        - name: refreshToken
+          in: query
+          required: false
+          description: Refresh token can also be passed in query.
+          schema:
+            type: string
+      requestBody:
+        description: Refresh token can also be passed in request body.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: Logout successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Success
+                  message:
+                    type: string
+                    example: Logout successfully
+        "400":
+          description: No refresh token provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: No refresh token provided
+        "500":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Error
+                  message:
+                    type: string
+                    example: Server error
+
   /furniture-categories:
     post:
       summary: Create new category

@@ -13,7 +13,10 @@ import authRoute from './routes/authRoute.js'
 const app = express()
 const port = 4000
 
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend URL
+  credentials: true,               // allow cookies to be sent
+}));
 app.use(express.json())
 app.use(cookieParser())
 
